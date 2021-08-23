@@ -84,7 +84,7 @@ proc readPlaylistFile {filename} {
 
     # open/read file
     set fh [open $filename r]
-    fconfigure $fh -encoding unicode
+    #fconfigure $fh -encoding unicode
     set tsvLines [split [read $fh] \n]
     close $fh
 
@@ -127,13 +127,15 @@ proc readPlaylistFile {filename} {
     # so hacked up with column number - BOOO!!!
     set idx 0
     foreach tabbedLine $tsvLines {
+        logLine "tabbedLine $tabbedLine"
         set line [split $tabbedLine \t]
+        set colNum 0
         for {set j 0} {$j < [llength $colNames]} {incr j} {
             switch $j {
                 0  {set col Name}
                 1  {set col Artist}
                 3  {set col Album}
-                26 {set col Location}
+                30 {set col Location}
                 default {set col X}
             }
             if {$col != "X"} {
